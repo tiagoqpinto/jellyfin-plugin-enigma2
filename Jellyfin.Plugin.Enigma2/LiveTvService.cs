@@ -1160,7 +1160,7 @@ namespace Jellyfin.Plugin.Enigma2
                 baseUrl = protocol + "://" + Plugin.Instance.Configuration.WebInterfaceUsername + ":" + Plugin.Instance.Configuration.WebInterfacePassword + "@" + Plugin.Instance.Configuration.HostName + ":" + streamingPort;
             }
 
-            var trancodingUrl = "";
+            var transcodingUrl = "";
             var transcodingBitrate = 1000000;
 
             if (Plugin.Instance.Configuration.TranscodedStream)
@@ -1172,12 +1172,14 @@ namespace Jellyfin.Plugin.Enigma2
                 }
                 catch (FormatException){/*Do nothing, let the value stay as default*/}
 
-                trancodingUrl += "?bitrate=" + transcodingBitrate;
-                trancodingUrl += "?width=1280?height=720?vcodec=h264?aspectratio=2?interlaced=0.mp4";
+                transcodingUrl += "?bitrate=" + transcodingBitrate;
+                transcodingUrl += "?width=1280?height=720?vcodec=";
+                transcodingUrl += Plugin.Instance.Configuration.TranscodingCodecH265? "h265" : "h264";
+                transcodingUrl += "?aspectratio=2?interlaced=0.mp4";
             }
 
             _liveStreams++;
-            var streamUrl = string.Format("{0}/{1}{2}", baseUrl, channelOid, trancodingUrl);
+            var streamUrl = string.Format("{0}/{1}{2}", baseUrl, channelOid, transcodingUrl);
             UtilsHelper.DebugInformation(_logger, string.Format("[Enigma2] GetChannelStream url: {0}", streamUrl));
 
             return new MediaSourceInfo
