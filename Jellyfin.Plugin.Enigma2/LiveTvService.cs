@@ -1182,7 +1182,7 @@ namespace Jellyfin.Plugin.Enigma2
             var streamUrl = string.Format("{0}/{1}{2}", baseUrl, channelOid, transcodingUrl);
             UtilsHelper.DebugInformation(_logger, string.Format("[Enigma2] GetChannelStream url: {0}", streamUrl));
 
-            return new MediaSourceInfo
+            if (Plugin.Instance.Configuration.TranscodedStream)
             {
                 Id = _liveStreams.ToString(CultureInfo.InvariantCulture),
                 Path = streamUrl,
@@ -1206,6 +1206,7 @@ namespace Jellyfin.Plugin.Enigma2
                         }
                     }
             };
+
             throw new ResourceNotFoundException(string.Format("Could not stream channel {0}", channelOid));
         }
 
