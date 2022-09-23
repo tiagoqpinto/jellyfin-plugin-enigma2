@@ -1177,7 +1177,7 @@ namespace Jellyfin.Plugin.Enigma2
                 transcodingUrl += "?bitrate=" + transcodingBitrate;
                 transcodingUrl += "?width=" + transcodingWidth;
                 transcodingUrl += "?height=" + transcodingHeight;
-                transcodingUrl += "framerate=24000?vcodec=";
+                transcodingUrl += "?vcodec=";
                 transcodingUrl += Plugin.Instance.Configuration.TranscodingCodecH265? "h265" : "h264";
                 transcodingUrl += "?aspectratio=2?interlaced=0.mp4";
             }
